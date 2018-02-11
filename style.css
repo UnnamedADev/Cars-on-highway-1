@@ -23,7 +23,7 @@ body {
       body section > div:nth-child(3) p {
         margin-left: 20px;
         font-size: 1.4em; }
-        body section > div:nth-child(3) p .pScore {
+        body section > div:nth-child(3) p span {
           font-weight: bold; }
     body section > div {
       float: left;

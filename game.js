@@ -1,3 +1,5 @@
+// # PROGRESS
+stage = [0,10,20,40,80,160,320];
 // # PREGENERATION
 document.addEventListener("DOMContentLoaded", function(){
     canvas = document.getElementById("myCanvas");
@@ -5,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.addEventListener("keydown", keyPush);
     document.addEventListener("keyup", keyRelease);
     setInterval(game, 1000/30);
+    addPoint();
     
     // # GRAPHIC
     srcPlayer = document.getElementById("srcPlayer");
@@ -29,6 +32,7 @@ playerSpeed = 0.2;
     carsPassed = 0;
     overallCarsPassed = 0;
     yourLoses = 0;
+    actualStage = 0;
 
 // # car
 cars = [];
@@ -38,6 +42,7 @@ gravity = 0.23;
 
 // # GAME
 drawCars(carN,carD);
+
 function game() {
     
     ctx.fillStyle = "black";
@@ -72,22 +77,31 @@ function game() {
     for(var i=0;i<cars.length;i++){
         
         if(cars[i].y > ty){
+            // CAR PASSED
             cars.shift();
+            
             carsPassed++;
             overallCarsPassed++;
+            checkStage();
+            
             addPoint();
+            
             addCar();
         }
         
         cars[i].y += gravity;
         if(cars[i].x == px && (cars[i].y*gs)+ playerH*gs > py*gs && (cars[i].y*gs) < py*gs+playerH*gs){
-            
+            // LOST
             cars = [];
             drawCars(carN,carD);
             px=2; py=ty-playerH-0.2;
+            
             yourLoses++;
             carsPassed = 0;
+            actualStage = 0;
+            
             addPoint();
+            
             return;
         }
         ctx.drawImage(srcComputer,cars[i].x*gs+carDS,cars[i].y*gs,gs-carW,carH*gs);
@@ -163,4 +177,13 @@ function addPoint() {
     document.getElementById("carsPassed").innerHTML = carsPassed;
     document.getElementById("overallCarsPassed").innerHTML = overallCarsPassed;
     document.getElementById("yourLoses").innerHTML = yourLoses;
+    document.getElementById("actualStage").innerHTML = actualStage;
+    document.getElementById("nextStage").innerHTML = actualStage+1;
+    document.getElementById("nextStageCars").innerHTML = stage[actualStage+1]-carsPassed;
+}
+function checkStage() {
+    
+    if(carsPassed >= stage[actualStage+1]){
+        actualStage++;
+    }
 }
