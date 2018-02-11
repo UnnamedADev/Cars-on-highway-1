@@ -75,6 +75,13 @@ function game() {
         py=0;
         console.log(py);
     }
+    // pass X
+    if(px*gs+gs-playerW > tx*gs){
+        px=tx-(gs-playerW)/100;
+    }
+    if(px < 0){
+        px=0;
+    }
     
     ctx.fillStyle = "#444";
     ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -204,13 +211,7 @@ function keyPush(evt) {
         }
     }
     
-    // pass X
-    if(px >= tx){
-        px=tx-1;
-    }
-    if(px < 0){
-        px=0;
-    }
+    
 }
 function keyRelease(evt) {
     switch(evt.keyCode){
