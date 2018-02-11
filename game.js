@@ -15,8 +15,7 @@ cars = [];
 
 gravity = 0.23;
 
-addCar();
-setTimeout(addCar, 600);
+drawCars(2,700);
 function game() {
     
     ctx.fillStyle = "black";
@@ -43,6 +42,20 @@ function game() {
     
     
     
+}
+
+function drawCars(carNumber, carDelay){
+    
+        addCar();
+        carNumber--;
+    
+        if(carNumber <= 0){
+            return;
+        }
+    
+        setTimeout(function(){
+            drawCars(carNumber,carDelay);
+        },carDelay);
 }
 
 function addCar(){
