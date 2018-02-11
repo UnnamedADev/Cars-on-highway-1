@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // # GRAPHIC
     srcPlayer = document.getElementById("srcPlayer");
     srcComputer = document.getElementById("srcComputer");
+    srcBackground = document.getElementById("srcBackground");
     
     // # INIT TIMER
     mySec = 0;
@@ -40,6 +41,10 @@ playerDS = playerW/2;
 // # playground
 gs = 100;
 tx=5; ty=9;
+
+ly=0; lv=1;
+lineSpeed = 0.2 * 100;
+
 // # player
 px=2; py=ty-playerH-0.2;
 xv=yv=0;
@@ -73,29 +78,35 @@ function game() {
     
     ctx.fillStyle = "#444";
     ctx.fillRect(0,0,canvas.width,canvas.height);
+   //optional image backgrpund //ctx.drawImage(srcBackground,0,0,canvas.width,canvas.height)
     
     py += yv*playerSpeedV;
     px += xv*playerSpeedH;
+    
+    ly += lv * lineSpeed;
     // # lines between lanes
     for(var j=0;j<tx-1;j++){
         ctx.beginPath();
         ctx.setLineDash([0, 0]);
         ctx.moveTo((j+1)*gs,0*gs);
         ctx.lineTo((j+1)*gs,ty*gs);
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 3;
         ctx.strokeStyle = "white";
         ctx.stroke();
         ctx.closePath();
     }
     
     // # middle lane lines
+    if(ly>=40){
+        ly=-80;
+    }
     for(var j=0.5;j<tx;j++){
         ctx.beginPath();
-        ctx.setLineDash([40, 40]);
-        ctx.moveTo(j*gs,0*gs);
-        ctx.lineTo(j*gs,ty*gs);
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "yellow";
+        ctx.setLineDash([40, 80]);
+        ctx.moveTo(j*gs,0*gs+ly);
+        ctx.lineTo(j*gs,ty*gs+ly);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "white";
         ctx.stroke();
         ctx.closePath();
     }
