@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+$dark: #444444;
+$verydark: #393939;
+$fair: #eeeeee;
+
+body, html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body{
+    font-family: lato;
+    
+    #source {
+        display: none;    
+    }
+    
+    section{
+        float: left; width: 100%;
+        height: 100%;
+        background: red;
+        
+        >div:nth-child(1){
+            background: $dark;
+        }
+        >div:nth-child(2){
+            background: $verydark;
+            text-align: center;
+        }
+        >div:nth-child(3){
+            background: $dark;
+            p {
+                margin-left: 20px;
+                font-size: 1.4em;
+                .pScore {
+                    font-weight: bold;
+                }
+            }
+        }
+        
+        >div {
+            float: left; 
+            width: (100% / 3);
+            background: green;
+            height: 100%;
+            color: $fair;
+            
+            #myCanvas {
+                margin-top: 30px;
+                border: 1px solid black;
+            }
+        }
+    }
+}

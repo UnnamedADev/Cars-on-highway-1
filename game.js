@@ -26,6 +26,10 @@ px=2; py=ty-playerH-0.2;
 yv=0;
 playerSpeed = 0.2;
 
+    carsPassed = 0;
+    overallCarsPassed = 0;
+    yourLoses = 0;
+
 // # car
 cars = [];
 //# rest conf
@@ -69,6 +73,9 @@ function game() {
         
         if(cars[i].y > ty){
             cars.shift();
+            carsPassed++;
+            overallCarsPassed++;
+            addPoint();
             addCar();
         }
         
@@ -78,6 +85,9 @@ function game() {
             cars = [];
             drawCars(carN,carD);
             px=2; py=ty-playerH-0.2;
+            yourLoses++;
+            carsPassed = 0;
+            addPoint();
             return;
         }
         ctx.drawImage(srcComputer,cars[i].x*gs+carDS,cars[i].y*gs,gs-carW,carH*gs);
@@ -107,6 +117,7 @@ function addCar(){
 
 function keyPush(evt) {
     var oldX = px;
+    var oldY = py;
     switch(evt.keyCode){
         case 37:
             px--;
@@ -133,7 +144,8 @@ function keyPush(evt) {
     }
     if(px < 0){
         px=0;
-    } 
+    }
+
 }
 function keyRelease(evt) {
     switch(evt.keyCode){
@@ -144,4 +156,11 @@ function keyRelease(evt) {
             yv=0;
             break;
     }
+}
+
+function addPoint() {
+    
+    document.getElementById("carsPassed").innerHTML = carsPassed;
+    document.getElementById("overallCarsPassed").innerHTML = overallCarsPassed;
+    document.getElementById("yourLoses").innerHTML = yourLoses;
 }
