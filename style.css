@@ -22,9 +22,13 @@ body {
       background: #444444; }
       body section > div:nth-child(3) p {
         margin-left: 20px;
-        font-size: 1.4em; }
+        font-size: 1.4em;
+        text-transform: lowercase;
+        font-variant: small-caps; }
         body section > div:nth-child(3) p span {
-          font-weight: bold; }
+          font-weight: bold;
+          margin: 0 5px;
+          color: #f4c542; }
     body section > div {
       float: left;
       width: 33.3333333333%;

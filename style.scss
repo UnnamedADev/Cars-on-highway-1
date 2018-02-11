@@ -3,6 +3,7 @@
 $dark: #444444;
 $verydark: #393939;
 $fair: #eeeeee;
+$special: #f4c542;
 
 body, html {
     padding: 0;
@@ -34,8 +35,12 @@ body{
             p {
                 margin-left: 20px;
                 font-size: 1.4em;
+                text-transform: lowercase;
+                font-variant: small-caps;
                 span {
                     font-weight: bold;
+                    margin: 0 5px;
+                    color: $special;
                 }
             }
         }

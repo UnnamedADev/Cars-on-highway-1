@@ -1,7 +1,18 @@
 // # PROGRESS
-stage = [0,10,20,40,80,160,320];
+stage = [];
+function buildStages(){
+    
+    stage[0] = 0;
+    stage[1] = 10;
+    
+    for(var i=2;i<12;i++){
+        stage[i] = Math.floor(stage[i-1]*1.4);
+        console.log(stage[i]);
+    }
+}
 // # PREGENERATION
 document.addEventListener("DOMContentLoaded", function(){
+    buildStages();
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
@@ -45,7 +56,7 @@ drawCars(carN,carD);
 
 function game() {
     
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "#444";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     
     py += yv*playerSpeed;
