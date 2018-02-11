@@ -5,6 +5,10 @@ document.addEventListener("DOMContentLoaded", function(){
     document.addEventListener("keydown", keyPush);
     document.addEventListener("keyup", keyRelease);
     setInterval(game, 1000/30);
+    
+    // # GRAPHIC
+    srcPlayer = document.getElementById("srcPlayer");
+    srcComputer = document.getElementById("srcComputer");
 });
 
 // # CONFIG
@@ -61,7 +65,6 @@ function game() {
         ctx.closePath();
     }
     // # rest
-    ctx.fillStyle = "red";
     for(var i=0;i<cars.length;i++){
         
         if(cars[i].y > ty){
@@ -74,15 +77,13 @@ function game() {
             
             cars = [];
             drawCars(carN,carD);
-            px=2;
+            px=2; py=ty-playerH-0.2;
             return;
         }
-        
-        ctx.fillRect(cars[i].x*gs+carDS,cars[i].y*gs,gs-carW,carH*gs);
+        ctx.drawImage(srcComputer,cars[i].x*gs+carDS,cars[i].y*gs,gs-carW,carH*gs);
     }
         
-    ctx.fillStyle = "dodgerblue";
-    ctx.fillRect(px*gs+playerDS,py*gs,gs-playerW,playerH*gs);
+    ctx.drawImage(srcPlayer, px*gs+playerDS, py*gs,gs-playerW, playerH*gs);
     
 }
 // # FUNCTIONS
