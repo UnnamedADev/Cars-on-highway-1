@@ -11,30 +11,42 @@ tx=5; ty=9;
 px=2; py=7;
 
 //car
-cx=2; cy=0;
-gravity = 0.3;
+cars = [];
+
+gravity = 0.2;
+
+addCar();
+setTimeout(addCar, 600);
 function game() {
     
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     
-    cy += gravity;
     
-    if((cy*gs)+180 >= py*gs && cx == px){
-        px=2; cx=2; cy=0;
+    ctx.fillStyle = "red";
+    for(var i=0;i<cars.length;i++){
+        
+        cars[i].y += gravity;
+        if((cars[i].y*gs)+180 > py*gs && cars[i].x == px){
+            console.log("Przegrales...");
+        }
+        if(cars[i].y > ty){
+            cars.shift();
+            addCar();
+        }
+        ctx.fillRect(cars[i].x*gs,cars[i].y*gs,gs-2,(2*gs)-2);
     }
-    
-    if(cy > ty){
-        cy=0;
-        cx = Math.floor(Math.random()*5)
-    }
-    
+        
     ctx.fillStyle = "dodgerblue";
     ctx.fillRect(px*gs,py*gs,gs-2,(2*gs)-2);
     
-    ctx.fillStyle = "red";
-    ctx.fillRect(cx*gs,cy*gs,gs-2,(2*gs)-2);
     
+    
+    
+}
+
+function addCar(){
+    cars.push({x:Math.floor(Math.random()*5),y:0});
 }
 
 function keyPush(evt) {
