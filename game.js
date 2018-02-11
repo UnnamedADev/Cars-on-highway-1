@@ -1,3 +1,4 @@
+// # PREGENERATION
 document.addEventListener("DOMContentLoaded", function(){
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
@@ -5,24 +6,55 @@ document.addEventListener("DOMContentLoaded", function(){
     setInterval(game, 1000/30);
 });
 
+// # CONFIG
+// # modify cars widths and height
+carW = 20; carH = 1.9;
+carDS = carW/2;
+playerW = 20; playerH = 1.7;
+playerDS = playerW/2;
+
 // # playground
 gs = 100;
 tx=5; ty=9;
 // # player
-px=2; py=7;
+px=2; py=ty-playerH-0.2;
 // # car
 cars = [];
 //# rest conf
 carN = 2; carD = 700;
 gravity = 0.23;
 
+// # GAME
 drawCars(carN,carD);
 function game() {
     
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,canvas.width,canvas.height);
     
+    // # lines between lanes
+    for(var j=0;j<tx-1;j++){
+        ctx.beginPath();
+        ctx.setLineDash([0, 0]);
+        ctx.moveTo((j+1)*gs,0*gs);
+        ctx.lineTo((j+1)*gs,ty*gs);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "white";
+        ctx.stroke();
+        ctx.closePath();
+    }
     
+    // # middle lane lines
+    for(var j=0.5;j<tx;j++){
+        ctx.beginPath();
+        ctx.setLineDash([40, 40]);
+        ctx.moveTo(j*gs,0*gs);
+        ctx.lineTo(j*gs,ty*gs);
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = "yellow";
+        ctx.stroke();
+        ctx.closePath();
+    }
+    // # rest
     ctx.fillStyle = "red";
     for(var i=0;i<cars.length;i++){
         
@@ -36,17 +68,14 @@ function game() {
             cars.shift();
             addCar();
         }
-        ctx.fillRect(cars[i].x*gs,cars[i].y*gs,gs-2,(2*gs)-2);
+        ctx.fillRect(cars[i].x*gs+carDS,cars[i].y*gs,gs-carW,carH*gs);
     }
         
     ctx.fillStyle = "dodgerblue";
-    ctx.fillRect(px*gs,py*gs,gs-2,(2*gs)-2);
-    
-    
-    
+    ctx.fillRect(px*gs+playerDS,py*gs,gs-playerW,playerH*gs);
     
 }
-
+// # FUNCTIONS
 function drawCars(carNumber, carDelay){
     
         addCar();
@@ -87,7 +116,5 @@ function keyPush(evt) {
     }
     if(px < 0){
         px=0;
-    }
-    
-    
+    } 
 }
