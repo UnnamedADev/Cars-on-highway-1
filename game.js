@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
+    document.addEventListener("keyup", keyRelease);
     setInterval(game, 1000/30);
 });
 
@@ -18,6 +19,9 @@ gs = 100;
 tx=5; ty=9;
 // # player
 px=2; py=ty-playerH-0.2;
+yv=0;
+playerSpeed = 0.2;
+
 // # car
 cars = [];
 //# rest conf
@@ -30,6 +34,8 @@ function game() {
     
     ctx.fillStyle = "black";
     ctx.fillRect(0,0,canvas.width,canvas.height);
+    
+    py += yv*playerSpeed;
     
     // # lines between lanes
     for(var j=0;j<tx-1;j++){
@@ -58,16 +64,20 @@ function game() {
     ctx.fillStyle = "red";
     for(var i=0;i<cars.length;i++){
         
-        cars[i].y += gravity;
-        if((cars[i].y*gs)+180 > py*gs && cars[i].x == px){
-            cars = [];
-            drawCars(carN,carD);
-            px=2;
-        }
         if(cars[i].y > ty){
             cars.shift();
             addCar();
         }
+        
+        cars[i].y += gravity;
+        if(cars[i].x == px && (cars[i].y*gs)+ playerH*gs > py*gs && (cars[i].y*gs) < py*gs+playerH*gs){
+            
+            cars = [];
+            drawCars(carN,carD);
+            px=2;
+            return;
+        }
+        
         ctx.fillRect(cars[i].x*gs+carDS,cars[i].y*gs,gs-carW,carH*gs);
     }
         
@@ -100,13 +110,19 @@ function keyPush(evt) {
         case 37:
             px--;
             break;
+        case 38:
+            yv=-1;
+            break;
         case 39:
             px++;
+            break;
+        case 40:
+            yv=1;
             break;
     }
     
     for(var i=0;i<cars.length;i++){
-        if(cars[i].x == px && (cars[i].y*gs)+180 > py*gs){
+        if(cars[i].x == px && (cars[i].y*gs)+ playerH*gs > py*gs && (cars[i].y*gs) < py*gs+playerH*gs){
             px = oldX;
         }
     }
@@ -117,4 +133,14 @@ function keyPush(evt) {
     if(px < 0){
         px=0;
     } 
+}
+function keyRelease(evt) {
+    switch(evt.keyCode){
+        case 38:
+            yv=0;
+            break;
+        case 40:
+            yv=0;
+            break;
+    }
 }
