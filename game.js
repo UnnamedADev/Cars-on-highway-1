@@ -13,7 +13,7 @@ px=2; py=7;
 //car
 cars = [];
 
-gravity = 0.2;
+gravity = 0.23;
 
 addCar();
 setTimeout(addCar, 600);
@@ -50,6 +50,7 @@ function addCar(){
 }
 
 function keyPush(evt) {
+    var oldX = px;
     switch(evt.keyCode){
         case 37:
             px--;
@@ -59,10 +60,18 @@ function keyPush(evt) {
             break;
     }
     
+    for(var i=0;i<cars.length;i++){
+        if(cars[i].x == px && (cars[i].y*gs)+180 > py*gs){
+            px = oldX;
+        }
+    }
+    
     if(px >= tx){
         px=tx-1;
     }
     if(px < 0){
         px=0;
     }
+    
+    
 }
