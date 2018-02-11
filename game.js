@@ -7,7 +7,6 @@ function buildStages(){
     
     for(var i=2;i<12;i++){
         stage[i] = Math.floor(stage[i-1]*1.4);
-        console.log(stage[i]);
     }
 }
 // # PREGENERATION
@@ -55,6 +54,15 @@ gravity = 0.23;
 drawCars(carN,carD);
 
 function game() {
+    // pass Y
+    if(py*gs+playerH*gs >= ty*gs){
+        py=ty-playerH;
+        console.log(py);
+    }
+    if(py*gs <= 0){
+        py=0;
+        console.log(py);
+    }
     
     ctx.fillStyle = "#444";
     ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -157,20 +165,20 @@ function keyPush(evt) {
             yv=1;
             break;
     }
-    
+    // pass lane when car
     for(var i=0;i<cars.length;i++){
         if(cars[i].x == px && (cars[i].y*gs)+ playerH*gs > py*gs && (cars[i].y*gs) < py*gs+playerH*gs){
             px = oldX;
         }
     }
     
+    // pass X
     if(px >= tx){
         px=tx-1;
     }
     if(px < 0){
         px=0;
     }
-
 }
 function keyRelease(evt) {
     switch(evt.keyCode){
