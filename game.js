@@ -4,18 +4,19 @@ document.addEventListener("DOMContentLoaded", function(){
     document.addEventListener("keydown", keyPush);
     setInterval(game, 1000/30);
 });
-//game
+
+// # playground
 gs = 100;
 tx=5; ty=9;
-//player
+// # player
 px=2; py=7;
-
-//car
+// # car
 cars = [];
-
+//# rest conf
+carN = 2; carD = 700;
 gravity = 0.23;
 
-drawCars(2,700);
+drawCars(carN,carD);
 function game() {
     
     ctx.fillStyle = "black";
@@ -27,7 +28,9 @@ function game() {
         
         cars[i].y += gravity;
         if((cars[i].y*gs)+180 > py*gs && cars[i].x == px){
-            console.log("Przegrales...");
+            cars = [];
+            drawCars(carN,carD);
+            px=2;
         }
         if(cars[i].y > ty){
             cars.shift();
@@ -59,7 +62,7 @@ function drawCars(carNumber, carDelay){
 }
 
 function addCar(){
-    cars.push({x:Math.floor(Math.random()*5),y:0});
+    cars.push({x:Math.floor(Math.random()*5),y:-2});
 }
 
 function keyPush(evt) {
