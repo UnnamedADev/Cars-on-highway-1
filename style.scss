@@ -32,6 +32,17 @@ body{
         }
         >div:nth-child(3){
             background: $dark;
+            h1{   
+                font-size: 2em;
+                margin-left: 20px;
+                text-transform: uppercase;
+                font-variant: small-caps;
+                span {
+                    font-weight: bold;
+                    margin: 0 5px;
+                    color: $special;
+                }
+            }
             p {
                 margin-left: 20px;
                 font-size: 1.4em;

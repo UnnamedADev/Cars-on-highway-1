@@ -20,6 +20,15 @@ body {
       text-align: center; }
     body section > div:nth-child(3) {
       background: #444444; }
+      body section > div:nth-child(3) h1 {
+        font-size: 2em;
+        margin-left: 20px;
+        text-transform: uppercase;
+        font-variant: small-caps; }
+        body section > div:nth-child(3) h1 span {
+          font-weight: bold;
+          margin: 0 5px;
+          color: #f4c542; }
       body section > div:nth-child(3) p {
         margin-left: 20px;
         font-size: 1.4em;
