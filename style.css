@@ -15,6 +15,15 @@ body {
     background: red; }
     body section > div:nth-child(1) {
       background: #444444; }
+      body section > div:nth-child(1) h1 {
+        font-size: 2em;
+        margin-left: 20px;
+        text-transform: uppercase;
+        font-variant: small-caps; }
+        body section > div:nth-child(1) h1 #pausedornot {
+          font-weight: bold;
+          margin: 0 5px;
+          color: #f4c542; }
     body section > div:nth-child(2) {
       background: #393939;
       text-align: center; }

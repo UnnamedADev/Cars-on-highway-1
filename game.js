@@ -279,12 +279,24 @@ function gamePause(){
             window.clearInterval(gameInterval);
             timerState = false;
             
+            document.getElementById("pauseinfo").innerHTML = "press esc to resume";
+            document.getElementById("pausedornot").innerHTML = "paused";
+            
+            ctx.fillStyle = "rgba(0,0,0,0.6)";
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            document.getElementById("myCanvas").style.borderColor = "#222";
+            
             isPaused = true;
             break;
         case true:
             console.log("unpauza");
             gameInterval = window.setInterval(game, 1000/30);
             timerState = true;
+            
+            document.getElementById("pauseinfo").innerHTML = "press esc to pause";
+            document.getElementById("pausedornot").innerHTML = "playing...";
+            
+            document.getElementById("myCanvas").style.borderColor = "";
             
             isPaused = false;
             break;

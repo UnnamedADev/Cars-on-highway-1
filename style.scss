@@ -25,6 +25,17 @@ body{
         
         >div:nth-child(1){
             background: $dark;
+            h1{   
+                font-size: 2em;
+                margin-left: 20px;
+                text-transform: uppercase;
+                font-variant: small-caps;
+                #pausedornot {
+                    font-weight: bold;
+                    margin: 0 5px;
+                    color: $special;
+                }
+            }
         }
         >div:nth-child(2){
             background: $verydark;
