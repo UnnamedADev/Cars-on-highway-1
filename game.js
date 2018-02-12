@@ -16,21 +16,26 @@ document.addEventListener("DOMContentLoaded", function(){
     ctx = canvas.getContext("2d");
     document.addEventListener("keydown", keyPush);
     document.addEventListener("keyup", keyRelease);
-    setInterval(game, 1000/30);
+    gameInterval = window.setInterval(game, 1000/30);
     addPoint();
     
     // # GRAPHIC
     srcPlayer = document.getElementById("srcPlayer");
-    srcComputer = document.getElementById("srcComputer");
+    srcComputer = [];
+    srcComputer[0] = document.getElementById("srcComputer1");
+    srcComputer[1] = document.getElementById("srcComputer2");
+    srcComputer[2] = document.getElementById("srcComputer3");
     srcBackground = document.getElementById("srcBackground");
     
     // # INIT TIMER
+    timerState = true;
     mySec = 0;
     myMin = 0;
     myHour = 0;
     timer();
 });
-
+// # PAUSE
+    isPaused = false;
 // # CONFIG
 // # modify cars widths and height
 carMarg = 20; carH = 1.9;
@@ -161,7 +166,7 @@ function game() {
         }
         
        //draw car
-        ctx.drawImage(srcComputer,cars[i].x*gs+carDS,cars[i].y*gs,gs-carMarg,carH*gs);
+        ctx.drawImage(srcComputer[cars[i].tmodel],cars[i].x*gs+carDS,cars[i].y*gs,gs-carMarg,carH*gs);
     }
     
     //draw player
@@ -184,7 +189,7 @@ function drawCars(carNumber, carDelay){
 }
 
 function addCar(){
-    cars.push({x:Math.floor(Math.random()*5),y:-2});
+    cars.push({x:Math.floor(Math.random()*5),y:-2, tmodel:Math.floor(Math.random()*3)});
 }
 
 function keyPush(evt) {
@@ -202,6 +207,9 @@ function keyPush(evt) {
             break;
         case 40:
             yv=1;
+            break;
+        case 27:
+            gamePause();
             break;
     }
     // pass lane when car
@@ -246,16 +254,39 @@ function checkStage() {
     }
 }
 function timer(){
-    mySec++;
-    if(mySec>=60){
-        mySec=0;
-        myMin++;
+    if(timerState != false){
+         mySec++;
+        if(mySec>=60){
+            mySec=0;
+            myMin++;
+        }
+        if(myMin>=60){
+            myMin=0;
+            myHour++;
+        }
+
+        document.getElementById("survived").innerHTML = myHour+" hour "+myMin+" min "+mySec+" sec";
     }
-    if(myMin>=60){
-        myMin=0;
-        myHour++;
-    }
-    
-    document.getElementById("survived").innerHTML = myHour+" hour "+myMin+" min "+mySec+" sec";
+   
     setTimeout(timer,1000);
+}
+function gamePause(){
+    console.log("xd");
+    
+    switch(isPaused){
+        case false:
+            console.log("pauza");
+            window.clearInterval(gameInterval);
+            timerState = false;
+            
+            isPaused = true;
+            break;
+        case true:
+            console.log("unpauza");
+            gameInterval = window.setInterval(game, 1000/30);
+            timerState = true;
+            
+            isPaused = false;
+            break;
+    }
 }
